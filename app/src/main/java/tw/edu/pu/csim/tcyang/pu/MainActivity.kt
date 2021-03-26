@@ -17,12 +17,17 @@ class MainActivity : AppCompatActivity(),
     var TotalPictures:Int = 4 //總共幾張圖片(假設僅顯示pu0-pu3)
 
     fun ShowPicture(){
+        /*
         when (PictureNo){
             0 -> img.setImageResource(R.drawable.pu0)
             1 -> img.setImageResource(R.drawable.pu1)
             2 -> img.setImageResource(R.drawable.pu2)
             3 -> img.setImageResource(R.drawable.pu3)
         }
+        */
+        var res:Int = getResources().getIdentifier("pu" + (PictureNo),
+                "drawable", getPackageName())
+        img.setImageResource(res)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +35,15 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         gDetector = GestureDetector(this, this)
         img.setOnTouchListener(this)
+
+        var res:Int = -1
+        var countDrawables:Int = -1
+        while (res != 0) {
+            countDrawables++;
+            res = getResources().getIdentifier("pu" + (countDrawables),
+                    "drawable", getPackageName());
+        }
+        TotalPictures = countDrawables
     }
 /*
     override fun onTouchEvent(event: MotionEvent?): Boolean {
