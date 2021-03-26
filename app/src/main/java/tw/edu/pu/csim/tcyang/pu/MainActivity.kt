@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
-        GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener{
+        GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener,
+        View.OnTouchListener{
 
     lateinit var gDetector: GestureDetector
 
@@ -15,8 +17,9 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         gDetector = GestureDetector(this, this)
+        img.setOnTouchListener(this)
     }
-
+/*
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         /*
         if (txv.text == "靜宜之美"){
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity(),
         gDetector.onTouchEvent(event)
         return true
     }
+ */
 
     override fun onDown(p0: MotionEvent?): Boolean {
         txv.text = "按下"
@@ -71,6 +75,11 @@ class MainActivity : AppCompatActivity(),
 
     override fun onDoubleTapEvent(p0: MotionEvent?): Boolean {
         txv.text = "連續點兩下"
+        return true
+    }
+
+    override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
+        gDetector.onTouchEvent(event)
         return true
     }
 
